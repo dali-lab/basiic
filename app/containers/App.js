@@ -7,13 +7,42 @@ const {Raphael,Paper,Set,Circle,Ellipse,Image,Rect,Text,Path,Line} = require('re
 
 export default class App extends Component {
   props: {
-    children: HTMLElement
+    children: HTMLElement;
+  };
+  
+  constructor(props) {
+    super(props);
+    this.state = {squares: []};
+    this.handleClick = this.handleClick.bind(this);
+  };
+
+  componentDidMount() {
+    console.log("Mounted, motherfucker!\n");
+  };
+
+  getInitialState() {
+    return {squares:[]};
+  };
+
+
+  handleClick(e) {
+    e.preventDefault();
+
+    console.log(e);
+
+    var updatedSquares = this.state.squares.slice();
+    updatedSquares.push({x: e.clientX, y: e.clientY});
+    
+    this.setState({squares: updatedSquares})
+
+    console.log(this.state);
   };
 
   render() {
     // Get the size of the app window in the component
     // TODO(carter): This is the screen width and height. Figure out
     // the width and height of this component.
+
     var primaryDisplay = electron.screen.getPrimaryDisplay();
     var windowHeight = primaryDisplay.size.height;
     var windowWidth = primaryDisplay.size.width;
@@ -26,8 +55,9 @@ export default class App extends Component {
         dotGrid.push({x:i, y:j, r:.5, attr:{"stroke":"#00cc00","stroke-width":1,"fill":"#00cc00"}});
    
     var test = 100;
+
     return (
-      <div>
+      <div onClick={this.handleClick}>
         <Paper width={windowWidth} height={windowHeight}>
           <Set>    
             {
