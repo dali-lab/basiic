@@ -17,7 +17,7 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    console.log("Mounted, motherfucker!\n");
+    console.log("Mounted\n");
   };
 
   getInitialState() {
@@ -56,6 +56,12 @@ export default class App extends Component {
    
     var test = 100;
 
+    var squareList = [];
+    for (i = 0; i < this.state.squares.length; i++) {
+      squareList.push({x: this.state.squares[i].x, y: this.state.squares[i].y, height: 30, width: 30, round: 3,
+        attr:{"stroke":"#f45642","stroke-width":1,"fill":"#f45642"}});
+    }
+
     return (
       <div onClick={this.handleClick}>
         <Paper width={windowWidth} height={windowHeight}>
@@ -63,6 +69,13 @@ export default class App extends Component {
             {
                 dotGrid.map(function(ele,pos){
                     return (<Circle key={pos} x={ele.x} y={ele.y} r={ele.r} attr={ele.attr}/>)
+                })
+            }
+          </Set>
+          <Set>
+            {
+                squareList.map(function(ele,pos){
+                    return (<Rect key={pos} x={ele.x} y={ele.y} width={ele.width} height={ele.height} attr={ele.attr}/>)
                 })
             }
           </Set>
