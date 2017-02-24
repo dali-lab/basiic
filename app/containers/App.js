@@ -12,7 +12,19 @@ export default class App extends Component {
   
   constructor(props) {
     super(props);
-    this.state = {squares: []};
+
+    var primaryDisplay = electron.screen.getPrimaryDisplay();
+    var windowHeight = primaryDisplay.size.height;
+    var windowWidth = primaryDisplay.size.width;
+    
+    // Create the list of dots to add to the dot-grid
+    var dots = [];
+    var i, j;
+    for (i = 5; i < windowWidth; i += 15)
+      for (j = 5; j < windowHeight; j += 15)
+        dots.push({x:i, y:j, r:.5, attr:{"stroke":"#00cc00","stroke-width":1,"fill":"#00cc00"}});
+
+    this.state = {offset: 5, gridSize: 15, dotGrid: dots, squares: []};
     this.handleClick = this.handleClick.bind(this);
   };
 
@@ -20,19 +32,55 @@ export default class App extends Component {
     console.log("Mounted\n");
   };
 
-  getInitialState() {
-    return {squares:[]};
-  };
+//  getInitialState() {
+//    return {offset: 5, gridsize: 15, squares: []};
+//  };
 
 
   handleClick(e) {
     e.preventDefault();
 
     console.log(e);
+    // Calculate the nearest dot on the grid to snap to
+    var topLeftX = 50;
+    var minDistX = 10000;
+    var topLeftY = 50;
+    var minDistY = 10000;
 
+    var clickX = e.clientX;
+    var clickY = e.clientY;
+
+    for (var i = 0; i < this.state.dotGrid.length; i++) {
+      var dot = this.state.dotGrid[i];
+      var distX = Math.abs(clickX - dot.x);
+      if (distX < minDistX) {
+        topLeftX = dot.x;
+        minDistX = distX;
+      }
+
+      var distY = Math.abs(clickY - dot.y);
+      if (distY < minDistY) {
+        topLeftY = dot.y;
+        minDistY = distY;
+      }
+    }
+
+//  if (e.clientX % this.state.gridSize <= 7) {
+//    topLeftX = e.clientX - (e.clientX % this.state.gridSize);
+//  } else {
+//    topLeftX = e.clientX + (this.state.gridSize - (e.clientX % this.state.gridSize));
+//  }
+
+//  if (e.clientY % this.state.gridSize <= 7) {
+//    topLeftY = e.clientY - (e.clientX % this.state.gridSize);
+//  } else {
+//    topLeftY = e.clientY + (this.state.gridSize - (e.clientY % this.state.gridSize));
+//  }
+
+    // Update the state by adding this square to the grid
     var updatedSquares = this.state.squares.slice();
-    updatedSquares.push({x: e.clientX, y: e.clientY});
-    
+    updatedSquares.push({x: topLeftX, y: topLeftY});
+
     this.setState({squares: updatedSquares})
 
     console.log(this.state);
@@ -46,18 +94,11 @@ export default class App extends Component {
     var primaryDisplay = electron.screen.getPrimaryDisplay();
     var windowHeight = primaryDisplay.size.height;
     var windowWidth = primaryDisplay.size.width;
-    
-    // Create the list of dots to add to the dot-grid
-    var dotGrid = [];
-    var i, j;
-    for (i = 5; i < windowWidth; i += 15)
-      for (j = 5; j < windowHeight; j += 15)
-        dotGrid.push({x:i, y:j, r:.5, attr:{"stroke":"#00cc00","stroke-width":1,"fill":"#00cc00"}});
    
     var test = 100;
 
     var squareList = [];
-    for (i = 0; i < this.state.squares.length; i++) {
+    for (var i = 0; i < this.state.squares.length; i++) {
       squareList.push({x: this.state.squares[i].x, y: this.state.squares[i].y, height: 30, width: 30, round: 3,
         attr:{"stroke":"#f45642","stroke-width":1,"fill":"#f45642"}});
     }
@@ -67,7 +108,7 @@ export default class App extends Component {
         <Paper width={windowWidth} height={windowHeight}>
           <Set>    
             {
-                dotGrid.map(function(ele,pos){
+                this.state.dotGrid.map(function(ele,pos){
                     return (<Circle key={pos} x={ele.x} y={ele.y} r={ele.r} attr={ele.attr}/>)
                 })
             }
