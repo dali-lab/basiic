@@ -5,7 +5,6 @@ var electron = require('electron');
 
 import DotGrid from './DotGrid'
 import Diagram from './Diagram'
-// const {Raphael,Paper,Set,Circle,Ellipse,Image,Rect,Text,Path,Line} = require('react-raphael');
 
 export default class Canvas extends Component {
   render() {
