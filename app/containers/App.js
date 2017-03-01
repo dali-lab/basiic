@@ -17,7 +17,6 @@ export default class App extends Component {
     super(props);
   };
 
-
   render() {
     return (
       <div style={{position: 'absolute', backgroundColor: 'green', width: '100%', height: '100%', margin: 0, padding: 0}}>
