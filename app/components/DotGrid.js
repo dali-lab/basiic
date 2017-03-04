@@ -3,13 +3,11 @@ import React, { Component } from 'react';
 var ReactDOM = require('react-dom');
 var electron = require('electron');
 
-// const {Raphael,Paper,Set,Circle,Ellipse,Image,Rect,Text,Path,Line} = require('react-raphael');
-
 export default class DotGrid extends Component {
   render() {
     // Use a SVG patter to create a DotGrid 
     return (
-      <div style={{position: 'absolute', backgroundColor: 'white', width: '100%', height: '100%', margin: 0, padding: 0}}>
+      <div style={{position: 'absolute', width: '100%', height: '100%', margin: 0, padding: 0}}>
         <svg style={{position: 'relative', height: '100%', width: '100%'}}>
           <defs>
              <pattern id="dots-15-15" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
