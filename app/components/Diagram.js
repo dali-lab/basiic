@@ -11,7 +11,7 @@ export default class Diagram extends Component {
     super (props);
     
     this.state = {
-      cirlces: [],  // Information needed to build a circle block
+      circles: [],  // Information needed to build a circle block
       squares: [], // Information needed to build a square block
       connections: [],  // Start and end IDs of connection points
     };
@@ -36,15 +36,29 @@ export default class Diagram extends Component {
     
     console.log(topLeftX);
     console.log(topLeftY);
-    // Add this (x,y) location as an object to the blocks list in state
-    let updatedBlocks = this.state.squares.slice();  // immutable lists in state
-    updatedBlocks.push({x: topLeftX, y:topLeftY});
+    if (this.props.shape == 'Rect') {
+      // Add this (x,y) location as an object to the blocks list in state
+      let updatedBlocks = this.state.squares.slice();  // immutable lists in state
+      updatedBlocks.push({x: topLeftX, y:topLeftY});
 
-    this.setState({
-      cirlces: this.state.circles,
-      squares: updatedBlocks,
-      connections: this.state.connections,
-    });
+      this.setState({
+        circles: this.state.circles,
+        squares: updatedBlocks,
+        connections: this.state.connections,
+      });
+    }
+    
+    if (this.props.shape == 'Circle') {
+      // Add this (x,y) location as an object to the blocks list in state
+      let updatedBlocks = this.state.circles.slice();  // immutable lists in state
+      updatedBlocks.push({x: topLeftX, y:topLeftY});
+
+      this.setState({
+        circles: updatedBlocks,
+        squares: this.state.squares,
+        connections: this.state.connections,
+      });
+    }
     
     console.log(this.props.shape);
   };
@@ -60,6 +74,20 @@ export default class Diagram extends Component {
                 return (
                   <Rect 
                     key={pos} x={ele.x} y={ele.y} width={30} height={30}
+                    attr={{
+                      "stroke":"#f45642",
+                      "stroke-width":1,
+                      "fill":"#f45642"
+                    }}
+                  />
+                )
+              })
+            }
+            {
+              this.state.circles.map(function(ele, pos) {
+                return (
+                  <Circle 
+                    key={pos} x={ele.x} y={ele.y} r={15}
                     attr={{
                       "stroke":"#f45642",
                       "stroke-width":1,
