@@ -45,6 +45,7 @@ export default class Diagram extends Component {
     });
     
     console.log(updatedBlocks); // Debugging
+    console.log(this.props.shape);
   };
 
   render() {

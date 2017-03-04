@@ -7,11 +7,15 @@ import DotGrid from './DotGrid'
 import Diagram from './Diagram'
 
 export default class Canvas extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div style={{position: 'absolute', width: '100%', height: '90%', margin: 0, padding: 0, top: '10%'}}>
         <DotGrid />
-        <Diagram />
+        <Diagram shape={this.props.shape}/>
       </div>);
   }
 }

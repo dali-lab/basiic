@@ -6,16 +6,20 @@ var electron = require('electron');
 import ShapeOption from './ShapeOption';
 
 export default class ShapeBar extends Component {
-  
+  // Props: onShapeOptionClick, shape
+  constructor(props) {
+    super(props);
+  };
+
   render() {
     return (
       <div style={{position: 'absolute', backgroundColor: 'red', width: '100%', height: '10%', margin: 0, padding: 0}}>
-        <ShapeOption />
-        <ShapeOption />
-        <ShapeOption />
-        <ShapeOption />
-        <ShapeOption />
-        <ShapeOption />
+        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} option='Rect'/>
+        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} option='Circle'/>
+        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} option='No option'/>
+        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} option='No option'/>
+        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} option='No option'/>
+        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} option='No option'/>
       </div>);
   }
 }
