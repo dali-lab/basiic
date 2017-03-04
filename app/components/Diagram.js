@@ -11,7 +11,8 @@ export default class Diagram extends Component {
     super (props);
     
     this.state = {
-      blocks: [],  // Top-left (x,y) coordinates of each block in the diagram
+      cirlces: [],  // Information needed to build a circle block
+      squares: [], // Information needed to build a square block
       connections: [],  // Start and end IDs of connection points
     };
 
@@ -36,15 +37,15 @@ export default class Diagram extends Component {
     console.log(topLeftX);
     console.log(topLeftY);
     // Add this (x,y) location as an object to the blocks list in state
-    let updatedBlocks = this.state.blocks.slice();  // immutable lists in state
+    let updatedBlocks = this.state.squares.slice();  // immutable lists in state
     updatedBlocks.push({x: topLeftX, y:topLeftY});
 
     this.setState({
-      blocks: updatedBlocks,
+      cirlces: this.state.circles,
+      squares: updatedBlocks,
       connections: this.state.connections,
     });
     
-    console.log(updatedBlocks); // Debugging
     console.log(this.props.shape);
   };
 
@@ -55,7 +56,7 @@ export default class Diagram extends Component {
         <Paper position='absolute' width={615} height={608}>
           <Set>
             {
-              this.state.blocks.map(function(ele, pos) {
+              this.state.squares.map(function(ele, pos) {
                 return (
                   <Rect 
                     key={pos} x={ele.x} y={ele.y} width={30} height={30}

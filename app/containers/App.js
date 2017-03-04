@@ -39,7 +39,7 @@ export default class App extends Component {
     return (
       <div style={{position: 'absolute', width: '100%', height: '100%', margin: 0, padding: 0}}>
         <ShapeBar onShapeOptionClick={this.onShapeOptionClick} shape={this.state.shape}/>
-        <Canvas shape='Rect'/>
+        <Canvas shape={this.state.shape}/>
       </div>);
   }
 }
