@@ -27,8 +27,11 @@ export default class Diagram extends Component {
     const clickY = e.clientY;
 
     // Find the location of this click relative to the element itself
-    const topLeftX = clickX;
-    const topLeftY = clickY;
+    // NOTE FOR FUTURE DEVS: This offset was figured out via guess and check
+    //  since we have a quick deadline coming up. This is not reactive and is
+    //  a horrible best practice. Change this to compute the offset on the fly.
+    const topLeftX = clickX - 8;
+    const topLeftY = clickY - 75;
     
     console.log(topLeftX);
     console.log(topLeftY);
@@ -48,7 +51,7 @@ export default class Diagram extends Component {
     return (
       <div onClick={this.handleClick} 
            style={{position: 'absolute', width: '100%', height: '100%', margin: 0, padding: 0}}>
-        <Paper width='100%' height='100%'>
+        <Paper position='absolute' width={615} height={608}>
           <Set>
             {
               this.state.blocks.map(function(ele, pos) {
