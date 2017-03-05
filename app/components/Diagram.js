@@ -4,6 +4,8 @@ import ReactDom from 'react-dom';
 var ReactDOM = require('react-dom');
 var electron = require('electron');
 
+import ConnectionPoint from '../components/ConnectionPoint';
+
 const {Raphael,Paper,Set,Circle,Ellipse,Image,Rect,Text,Path,Line} = require('react-raphael');
 
 // Use Cantor's pairing function to generate unique keys for connection points.
@@ -156,6 +158,9 @@ export default class Diagram extends Component {
   };
 
   render() {
+    // Get a copy of the connectionPoint object
+    const connectionPoints = {...this.state.connectionPoints};
+    
     return (
       <div onClick={this.handleClick} 
            style={{position: 'absolute', width: '100%', height: '100%', margin: 0, padding: 0}}>
@@ -185,6 +190,18 @@ export default class Diagram extends Component {
                       "stroke-width":1,
                       "fill":"#f45642"
                     }}
+                  />
+                )
+              })
+            }
+            {
+              Object.keys(connectionPoints).map(function(key, pos) {
+                return (
+                  <ConnectionPoint
+                    key={pos}
+                    id={key}
+                    x={connectionPoints[key].x}
+                    y={connectionPoints[key].y}
                   />
                 )
               })
