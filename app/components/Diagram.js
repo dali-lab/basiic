@@ -31,12 +31,18 @@ export default class Diagram extends Component {
     // NOTE FOR FUTURE DEVS: This offset was figured out via guess and check
     //  since we have a quick deadline coming up. This is not reactive and is
     //  a horrible best practice. Change this to compute the offset on the fly.
-    const topLeftX = clickX - 8;
-    const topLeftY = clickY - 75;
+    let topLeftX = clickX - 8;
+    let topLeftY = clickY - 75;
     
     console.log(topLeftX);
     console.log(topLeftY);
     if (this.props.shape == 'Rect') {
+      // Get the width of the shape if it's a square
+      let width = 30;
+      // Center the square
+      topLeftX -= (width / 2); 
+      topLeftY -= (width / 2);
+
       // Add this (x,y) location as an object to the blocks list in state
       let updatedBlocks = this.state.squares.slice();  // immutable lists in state
       updatedBlocks.push({x: topLeftX, y:topLeftY});
