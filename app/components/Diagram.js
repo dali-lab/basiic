@@ -100,9 +100,6 @@ export default class Diagram extends Component {
       tly = topLeftY + (this.props.size / 2);
       newConnectPoints[key(tlx, tly)] = { x: tlx, y:tly }
       
-      // Add the connection points of this square to the map of connect points
-      // for the whole diagram.
-      
       // Add this (x,y) location as an object to the blocks list in state
       let updatedBlocks = this.state.squares.slice();  // immutable lists in state
       updatedBlocks.push({x: topLeftX, y:topLeftY, size:this.props.size});
@@ -115,7 +112,6 @@ export default class Diagram extends Component {
       });
     }
     
-    // A
     // Add a new circle
     if (this.props.shape == 'Circle') {
       // Add this (x,y) location as an object to the blocks list in state
@@ -124,10 +120,34 @@ export default class Diagram extends Component {
       // Circle size is measured in radius: divide by two
       updatedBlocks.push({x: topLeftX, y:topLeftY, size:(this.props.size / 2)});
 
+      // Generate Connection points for the circle along the edges
+      // This ES6 vodoo deconstructs the object to make a copy. Kind of.
+      let newConnectPoints = {...this.state.connectionPoints};
+
+      // Add Edge 1
+      let tlx = topLeftX - (this.props.size / 2);
+      let tly = topLeftY;
+      newConnectPoints[key(tlx, tly)] = { x: tlx, y:tly }
+
+      // Add Edge 2
+      tlx = topLeftX;
+      tly = topLeftY - (this.props.size / 2);
+      newConnectPoints[key(tlx, tly)] = { x: tlx, y:tly }
+
+      // Add Edge 3
+      tlx = topLeftX;
+      tly = topLeftY + (this.props.size / 2);
+      newConnectPoints[key(tlx, tly)] = { x: tlx, y:tly }
+
+      // Add Edge 4
+      tlx = topLeftX + (this.props.size / 2);
+      tly = topLeftY;
+      newConnectPoints[key(tlx, tly)] = { x: tlx, y:tly }
+
       this.setState({
         circles: updatedBlocks,
         squares: this.state.squares,
-        connectionPoints: this.state.connectionPoints,
+        connectionPoints: newConnectPoints,
         connections: this.state.connections,
       });
     }
