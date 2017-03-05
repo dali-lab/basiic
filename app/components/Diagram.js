@@ -34,6 +34,30 @@ export default class Diagram extends Component {
     let topLeftX = clickX - 8;
     let topLeftY = clickY - 75;
     
+    // Snap the blocks to the grid. There is an offset of five in each
+    // direction, and then the pixel value should be a multiple of 15.
+    // Use modular arithmetic to round to the nearest value
+    let snappedX = topLeftX - 5;
+    let snappedY = topLeftY - 5;
+
+    if ((snappedX % 15) != 0) { // They didn't hit exactly on a dot
+      if ((snappedX % 15) <= 7) { // Round down
+        snappedX -= (snappedX % 15);
+      } else { // Round up
+        snappedX += (15 - (snappedX % 15));
+      }
+    }
+    topLeftX = snappedX + 5;
+    
+    if ((snappedY % 15) != 0) { // They didn't hit exactly on a dot
+      if ((snappedY % 15) <= 7) { // Round down
+        snappedY -= (snappedY % 15);
+      } else { // Round up
+        snappedY += (15 - (snappedY % 15));
+      }
+    }
+    topLeftY = snappedY + 5;
+
     console.log(topLeftX);
     console.log(topLeftY);
     if (this.props.shape == 'Rect') {
