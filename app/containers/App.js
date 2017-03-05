@@ -16,6 +16,7 @@ export default class App extends Component {
 
     this.state = {
       shape: 'Rect',
+      strSize: 'Small',
       size: 30,
     };
 
@@ -34,6 +35,7 @@ export default class App extends Component {
       case 'Rect':
         this.setState({
           shape: 'Rect',
+          strSize: this.state.strSize,
           size: this.state.size,
         });
         break;
@@ -41,6 +43,7 @@ export default class App extends Component {
       case 'Circle':
         this.setState({
           shape: 'Circle',
+          strSize: this.state.strSize,
           size: this.state.size,
         });
         break;
@@ -48,6 +51,7 @@ export default class App extends Component {
       case 'Small':
         this.setState({
           shape: this.state.shape,
+          strSize: component.props.option,
           size: 30,
         });
         break;
@@ -55,6 +59,7 @@ export default class App extends Component {
       case 'Medium':
         this.setState({
           shape: this.state.shape,
+          strSize: component.props.option,
           size: 60,
         });
         break;
@@ -62,6 +67,7 @@ export default class App extends Component {
       case 'Big':
         this.setState({
           shape: this.state.shape,
+          strSize: component.props.option,
           size: 90,
         });
         break;
@@ -69,6 +75,7 @@ export default class App extends Component {
       case 'Fricken Huge':
         this.setState({
           shape: this.state.shape,
+          strSize: component.props.option,
           size: 120,
         });
         break;
@@ -83,7 +90,7 @@ export default class App extends Component {
   render() {
     return (
       <div style={{position: 'absolute', width: '100%', height: '100%', margin: 0, padding: 0}}>
-        <ShapeBar onShapeOptionClick={this.onShapeOptionClick} shape={this.state.shape}/>
+        <ShapeBar onShapeOptionClick={this.onShapeOptionClick} shape={this.state.shape} strSize={this.state.strSize}/>
         <Canvas shape={this.state.shape} size={this.state.size}/>
       </div>);
   }

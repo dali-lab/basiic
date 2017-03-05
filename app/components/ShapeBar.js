@@ -6,7 +6,7 @@ var electron = require('electron');
 import ShapeOption from './ShapeOption';
 
 export default class ShapeBar extends Component {
-  // Props: onShapeOptionClick, shape
+  // Props: onShapeOptionClick, shape, strSize
   constructor(props) {
     super(props);
   };
@@ -14,12 +14,12 @@ export default class ShapeBar extends Component {
   render() {
     return (
       <div style={{position: 'absolute', backgroundColor: 'red', width: '100%', height: '10%', margin: 0, padding: 0}}>
-        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} option='Rect'/>
-        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} option='Circle'/>
-        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} option='Small'/>
-        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} option='Medium'/>
-        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} option='Big'/>
-        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} option='Fricken Huge'/>
+        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Rect'/>
+        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Circle'/>
+        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Small'/>
+        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Medium'/>
+        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Big'/>
+        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Fricken Huge'/>
       </div>);
   }
 }
