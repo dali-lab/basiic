@@ -6,6 +6,13 @@ var electron = require('electron');
 
 const {Raphael,Paper,Set,Circle,Ellipse,Image,Rect,Text,Path,Line} = require('react-raphael');
 
+// Use Cantor's pairing function to generate unique keys for connection points.
+function key (a, b) {
+  let cantor = ((a + b) * (a + b + 1) / 2) + a;
+  console.log("Cantor of %d and %d is %d\n", a, b, cantor);
+  return parseInt(cantor);
+};
+
 export default class Diagram extends Component {
   constructor(props) {
     super (props);
@@ -13,11 +20,13 @@ export default class Diagram extends Component {
     this.state = {
       circles: [],  // Information needed to build a circle block
       squares: [], // Information needed to build a square block
+      connectionPoints: {}, // Points at which a connection point can be built
       connections: [],  // Start and end IDs of connection points
     };
 
     this.handleClick = this.handleClick.bind(this);
   };
+
 
   handleClick(e) {
     // On a click, add a block to the diagram on the click location
@@ -60,12 +69,40 @@ export default class Diagram extends Component {
 
     console.log(topLeftX);
     console.log(topLeftY);
+
+    // Add a new Rectangle
     if (this.props.shape == 'Rect') {
-      // Get the width of the shape if it's a square
       // Center the square
       topLeftX -= (this.props.size / 2); 
       topLeftY -= (this.props.size / 2);
 
+      // Generate Connection points for the square along the edges
+      // This ES6 vodoo deconstructs the object to make a copy. Kind of.
+      let newConnectPoints = {...this.state.connectionPoints};
+
+      // Add Edge 1
+      let tlx = topLeftX;
+      let tly = topLeftY + (this.props.size / 2);
+      newConnectPoints[key(tlx, tly)] = { x: tlx, y:tly }
+
+      // Add Edge 2
+      tlx = topLeftX + (this.props.size / 2);
+      tly = topLeftY;
+      newConnectPoints[key(tlx, tly)] = { x: tlx, y:tly }
+
+      // Add Edge 3
+      tlx = topLeftX + (this.props.size / 2);
+      tly = topLeftY + this.props.size;
+      newConnectPoints[key(tlx, tly)] = { x: tlx, y:tly }
+
+      // Add Edge 4
+      tlx = topLeftX + this.props.size;
+      tly = topLeftY + (this.props.size / 2);
+      newConnectPoints[key(tlx, tly)] = { x: tlx, y:tly }
+      
+      // Add the connection points of this square to the map of connect points
+      // for the whole diagram.
+      
       // Add this (x,y) location as an object to the blocks list in state
       let updatedBlocks = this.state.squares.slice();  // immutable lists in state
       updatedBlocks.push({x: topLeftX, y:topLeftY, size:this.props.size});
@@ -73,24 +110,29 @@ export default class Diagram extends Component {
       this.setState({
         circles: this.state.circles,
         squares: updatedBlocks,
+        connectionPoints: newConnectPoints,
         connections: this.state.connections,
       });
     }
     
+    // A
+    // Add a new circle
     if (this.props.shape == 'Circle') {
       // Add this (x,y) location as an object to the blocks list in state
       let updatedBlocks = this.state.circles.slice();  // immutable lists in state
+      
       // Circle size is measured in radius: divide by two
       updatedBlocks.push({x: topLeftX, y:topLeftY, size:(this.props.size / 2)});
 
       this.setState({
         circles: updatedBlocks,
         squares: this.state.squares,
+        connectionPoints: this.state.connectionPoints,
         connections: this.state.connections,
       });
     }
     
-    console.log(this.props.shape);
+    console.log(this.state);
   };
 
   render() {
@@ -102,7 +144,7 @@ export default class Diagram extends Component {
             {
               this.state.squares.map(function(ele, pos) {
                 return (
-                  <Rect 
+                  <Rect
                     key={pos} x={ele.x} y={ele.y} width={ele.size} height={ele.size}
                     attr={{
                       "stroke":"#f45642",
