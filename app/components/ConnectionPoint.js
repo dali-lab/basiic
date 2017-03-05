@@ -11,8 +11,25 @@ export default class ConnectionPoint extends Component {
     super(props);
 
     this.state = {
-      hide: false,
+      hide: true,
     };
+
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
+  };
+
+  // Show the connection point only on mouseover
+  onMouseOver(e) {
+    this.setState({
+      hide: false,
+    });
+  };
+
+  // Once the user mouses out of the connection point, make it transparent
+  onMouseOut(e) {
+    this.setState({
+      hide: true,
+    });
   };
 
   render() {
@@ -20,14 +37,20 @@ export default class ConnectionPoint extends Component {
     let size = 8;
     let tlx = this.props.x - (size / 2);
     let tly = this.props.y - (size / 2);
+    
+    // Decide on the opacity of the svg based on state
+    let opacity = '0.0'; // Completely invisible
+    if (!this.state.hide)
+      opacity = '1.0'; // Completely opaque
 
-    console.log("Rendering CP (id: %s) at %d, %d\n", this.props.id, this.props.x, this.props.y);
     return (
-        <Rect x={tlx} y={tly} width={size} height={size} hide={this.state.hide}
+        <Rect x={tlx} y={tly} width={size} height={size} toBack={true}
+          mouseover={this.onMouseOver} mouseout={this.onMouseOut}
           attr={{
             "stroke":"#00FFFF",
             "stroke-width":1,
             "fill":"#00FFFF",
+            "opacity":opacity,
           }}
         />);
   };
