@@ -69,7 +69,7 @@ export default class Diagram extends Component {
 
       // Add this (x,y) location as an object to the blocks list in state
       let updatedBlocks = this.state.squares.slice();  // immutable lists in state
-      updatedBlocks.push({x: topLeftX, y:topLeftY});
+      updatedBlocks.push({x: topLeftX, y:topLeftY, size:this.props.size});
 
       this.setState({
         circles: this.state.circles,
@@ -81,7 +81,8 @@ export default class Diagram extends Component {
     if (this.props.shape == 'Circle') {
       // Add this (x,y) location as an object to the blocks list in state
       let updatedBlocks = this.state.circles.slice();  // immutable lists in state
-      updatedBlocks.push({x: topLeftX, y:topLeftY});
+      // Circle size is measured in radius: divide by two
+      updatedBlocks.push({x: topLeftX, y:topLeftY, size:(this.props.size / 2)});
 
       this.setState({
         circles: updatedBlocks,
@@ -103,7 +104,7 @@ export default class Diagram extends Component {
               this.state.squares.map(function(ele, pos) {
                 return (
                   <Rect 
-                    key={pos} x={ele.x} y={ele.y} width={30} height={30}
+                    key={pos} x={ele.x} y={ele.y} width={ele.size} height={ele.size}
                     attr={{
                       "stroke":"#f45642",
                       "stroke-width":1,
@@ -117,7 +118,7 @@ export default class Diagram extends Component {
               this.state.circles.map(function(ele, pos) {
                 return (
                   <Circle 
-                    key={pos} x={ele.x} y={ele.y} r={15}
+                    key={pos} x={ele.x} y={ele.y} r={ele.size}
                     attr={{
                       "stroke":"#f45642",
                       "stroke-width":1,

@@ -15,7 +15,7 @@ export default class Canvas extends Component {
     return (
       <div style={{position: 'absolute', width: '100%', height: '90%', margin: 0, padding: 0, top: '10%'}}>
         <DotGrid />
-        <Diagram shape={this.props.shape}/>
+        <Diagram shape={this.props.shape} size={this.props.size}/>
       </div>);
   }
 }

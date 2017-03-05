@@ -16,6 +16,7 @@ export default class App extends Component {
 
     this.state = {
       shape: 'Rect',
+      size: 30,
     };
 
     this.onShapeOptionClick = this.onShapeOptionClick.bind(this);
@@ -27,9 +28,15 @@ export default class App extends Component {
     console.log("Before: This.state: %s\n", this.state.shape);
 
     if (component.props.option == 'Rect') {
-      this.setState({shape: 'Rect'});
+      this.setState({
+        shape: 'Rect',
+        size: this.state.size,
+      });
     } else if (component.props.option == 'Circle') {
-      this.setState({shape: 'Circle'});
+      this.setState({
+        shape: 'Circle',
+        size: this.state.size,
+      });
     }
 
     console.log("Handling Shape Option Click!\n");
@@ -39,7 +46,7 @@ export default class App extends Component {
     return (
       <div style={{position: 'absolute', width: '100%', height: '100%', margin: 0, padding: 0}}>
         <ShapeBar onShapeOptionClick={this.onShapeOptionClick} shape={this.state.shape}/>
-        <Canvas shape={this.state.shape}/>
+        <Canvas shape={this.state.shape} size={this.state.size}/>
       </div>);
   }
 }
