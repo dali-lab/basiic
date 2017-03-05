@@ -62,10 +62,9 @@ export default class Diagram extends Component {
     console.log(topLeftY);
     if (this.props.shape == 'Rect') {
       // Get the width of the shape if it's a square
-      let width = 30;
       // Center the square
-      topLeftX -= (width / 2); 
-      topLeftY -= (width / 2);
+      topLeftX -= (this.props.size / 2); 
+      topLeftY -= (this.props.size / 2);
 
       // Add this (x,y) location as an object to the blocks list in state
       let updatedBlocks = this.state.squares.slice();  // immutable lists in state

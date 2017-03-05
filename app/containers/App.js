@@ -25,18 +25,56 @@ export default class App extends Component {
   // Handle ShapeOption Click
   onShapeOptionClick(component, e) {
     // Set the state of the app based on the option click
-    console.log("Before: This.state: %s\n", this.state.shape);
+    console.log("Before: Shape: %s, Size: %s\n", this.state.shape, this.state.size);
 
-    if (component.props.option == 'Rect') {
-      this.setState({
-        shape: 'Rect',
-        size: this.state.size,
-      });
-    } else if (component.props.option == 'Circle') {
-      this.setState({
-        shape: 'Circle',
-        size: this.state.size,
-      });
+    // Check for various known options
+    
+    switch(component.props.option) {
+      // Two cases for shapes
+      case 'Rect':
+        this.setState({
+          shape: 'Rect',
+          size: this.state.size,
+        });
+        break;
+
+      case 'Circle':
+        this.setState({
+          shape: 'Circle',
+          size: this.state.size,
+        });
+        break;
+
+      case 'Small':
+        this.setState({
+          shape: this.state.shape,
+          size: 30,
+        });
+        break;
+
+      case 'Medium':
+        this.setState({
+          shape: this.state.shape,
+          size: 60,
+        });
+        break;
+
+      case 'Big':
+        this.setState({
+          shape: this.state.shape,
+          size: 90,
+        });
+        break;
+
+      case 'Fricken Huge':
+        this.setState({
+          shape: this.state.shape,
+          size: 120,
+        });
+        break;
+
+      default:
+        console.log("Unhandled Button: %s\n", component.props.option);
     }
 
     console.log("Handling Shape Option Click!\n");
