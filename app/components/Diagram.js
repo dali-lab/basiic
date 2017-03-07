@@ -31,6 +31,39 @@ export default class Diagram extends Component {
     this.handleClick = this.handleClick.bind(this);
   };
 
+  createConnection(component, e) {
+    // If not currently connection, start connecting
+    if (this.state.setConnectionPoint == null ||
+        !this.state.isConnection) {
+      this.setState({
+        circles: this.state.circles,
+        squares: this.state.squares,
+        setConnectionPoint: component.props.id, // The connection point last clicked
+        isConnecting: true, // The currently connection point
+        connectionPoints: this.state.connectionPoints,
+        connections: this.state.connections,
+      });
+    } else { // End the connection by adding a connection point
+      // Get the current list of connections and add it to the state
+      let updatedConnections = this.state.connections.slice();
+
+      updatedConnections.push({
+        start: this.state.setConnectionPoint,
+        end: component.props.id,
+      });
+
+      this.setState({
+        circles: this.state.circles,
+        squares: this.state.squares,
+        setConnectionPoint: null, // The connection point last clicked
+        isConnecting: false, // The currently connection point
+        connectionPoints: this.state.connectionPoints,
+        connections: updatedConnections,
+      });
+
+    }
+  };
+
   handleClick(e) {
     // On a click, add a block to the diagram on the click location
     e.preventDefault();
