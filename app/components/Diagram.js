@@ -22,13 +22,14 @@ export default class Diagram extends Component {
     this.state = {
       circles: [],  // Information needed to build a circle block
       squares: [], // Information needed to build a square block
+      setConnectionPoint: null, // The connection point last clicked
+      isConnecting: false, // The currently connection point
       connectionPoints: {}, // Points at which a connection point can be built
       connections: [],  // Start and end IDs of connection points
     };
 
     this.handleClick = this.handleClick.bind(this);
   };
-
 
   handleClick(e) {
     // On a click, add a block to the diagram on the click location
@@ -109,6 +110,8 @@ export default class Diagram extends Component {
       this.setState({
         circles: this.state.circles,
         squares: updatedBlocks,
+        setConnectionPoint: null, // The connection point last clicked
+        isConnecting: false, // The currently connection point
         connectionPoints: newConnectPoints,
         connections: this.state.connections,
       });
@@ -149,6 +152,8 @@ export default class Diagram extends Component {
       this.setState({
         circles: updatedBlocks,
         squares: this.state.squares,
+        setConnectionPoint: null, // The connection point last clicked
+        isConnecting: false, // The currently connection point
         connectionPoints: newConnectPoints,
         connections: this.state.connections,
       });
@@ -156,6 +161,8 @@ export default class Diagram extends Component {
     
     console.log(this.state);
   };
+
+
 
   render() {
     // Get a copy of the connectionPoint object
