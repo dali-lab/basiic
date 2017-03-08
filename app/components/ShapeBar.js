@@ -19,7 +19,7 @@ export default class ShapeBar extends Component {
         <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Small'/>
         <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Medium'/>
         <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Big'/>
-        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Fricken Huge'/>
+        <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Clear'/>
       </div>);
   }
 }

@@ -18,9 +18,22 @@ export default class App extends Component {
       shape: 'Rect',
       strSize: 'Small',
       size: 30,
+      clearSet: false, 
     };
 
     this.onShapeOptionClick = this.onShapeOptionClick.bind(this);
+    this.clearCallback = this.clearCallback.bind(this);
+  };
+
+  // Handle having been cleared
+  clearCallback() {
+    // If this is being called, the diagram has just been cleared
+    this.setState({
+      shape: this.state.shape,
+      strSize: this.state.strSize,
+      size: this.state.size,
+      clearSet: false, 
+    });
   };
 
   // Handle ShapeOption Click
@@ -37,6 +50,7 @@ export default class App extends Component {
           shape: 'Rect',
           strSize: this.state.strSize,
           size: this.state.size,
+          clearSet: false, 
         });
         break;
 
@@ -45,6 +59,7 @@ export default class App extends Component {
           shape: 'Circle',
           strSize: this.state.strSize,
           size: this.state.size,
+          clearSet: false, 
         });
         break;
 
@@ -53,6 +68,7 @@ export default class App extends Component {
           shape: this.state.shape,
           strSize: component.props.option,
           size: 30,
+          clearSet: false, 
         });
         break;
 
@@ -61,6 +77,7 @@ export default class App extends Component {
           shape: this.state.shape,
           strSize: component.props.option,
           size: 60,
+          clearSet: false, 
         });
         break;
 
@@ -69,29 +86,30 @@ export default class App extends Component {
           shape: this.state.shape,
           strSize: component.props.option,
           size: 90,
+          clearSet: false, 
         });
         break;
 
-      case 'Fricken Huge':
+      case 'Clear':
         this.setState({
           shape: this.state.shape,
-          strSize: component.props.option,
-          size: 120,
+          strSize: this.state.strSize,
+          size: this.state.size,
+          clearSet: true, 
         });
         break;
 
       default:
         console.log("Unhandled Button: %s\n", component.props.option);
     }
-
-    console.log("Handling Shape Option Click!\n");
   };
+
 
   render() {
     return (
       <div style={{position: 'absolute', width: '100%', height: '100%', margin: 0, padding: 0}}>
         <ShapeBar onShapeOptionClick={this.onShapeOptionClick} shape={this.state.shape} strSize={this.state.strSize}/>
-        <Canvas shape={this.state.shape} size={this.state.size}/>
+        <Canvas onClear={this.clearCallback} clear={this.state.clearSet} shape={this.state.shape} size={this.state.size}/>
       </div>);
   }
 }

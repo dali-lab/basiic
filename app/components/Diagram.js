@@ -224,6 +224,21 @@ export default class Diagram extends Component {
 
 
   render() {
+    // If the clear value is set, clear the diagram
+    if (this.props.clear) {
+      this.setState({
+        circles: [],  // Information needed to build a circle block
+        squares: [], // Information needed to build a square block
+        setConnectionPoint: null, // The connection point last clicked
+        isConnecting: false, // The currently connection point
+        connectionPoints: {}, // Points at which a connection point can be built
+        connections: [],  // Start and end IDs of connection points
+      });
+      
+      // Call the onClear callback to turn off the clear flag
+      this.props.onClear(); 
+    }
+    
     // Get a copy of the connectionPoint object
     const connectionPoints = {...this.state.connectionPoints};
     const connectionFunction = this.createConnection;
