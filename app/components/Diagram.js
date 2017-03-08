@@ -11,7 +11,6 @@ const {Raphael,Paper,Set,Circle,Ellipse,Image,Rect,Text,Path,Line} = require('re
 // Use Cantor's pairing function to generate unique keys for connection points.
 function key (a, b) {
   let cantor = ((a + b) * (a + b + 1) / 2) + a;
-  console.log("Cantor of %d and %d is %d\n", a, b, cantor);
   return parseInt(cantor);
 };
 
@@ -29,12 +28,18 @@ export default class Diagram extends Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.createConnection = this.createConnection.bind(this);
   };
 
   createConnection(component, e) {
+    // Stop default browser behavior and stop the event from propogating
+    e.preventDefault();
+    e.stopPropagation();
+
     // If not currently connection, start connecting
     if (this.state.setConnectionPoint == null ||
-        !this.state.isConnection) {
+        !this.state.isConnecting) {
+      console.log("Setting connection mode with starter point %s\n", component.props.id);
       this.setState({
         circles: this.state.circles,
         squares: this.state.squares,
@@ -51,6 +56,9 @@ export default class Diagram extends Component {
         start: this.state.setConnectionPoint,
         end: component.props.id,
       });
+      
+      console.log("Updated Connections:\n");
+      console.log(updatedConnections);
 
       this.setState({
         circles: this.state.circles,
@@ -60,7 +68,6 @@ export default class Diagram extends Component {
         connectionPoints: this.state.connectionPoints,
         connections: updatedConnections,
       });
-
     }
   };
 
@@ -200,6 +207,7 @@ export default class Diagram extends Component {
   render() {
     // Get a copy of the connectionPoint object
     const connectionPoints = {...this.state.connectionPoints};
+    const connectionFunction = this.createConnection;
     
     return (
       <div onClick={this.handleClick} 
@@ -238,6 +246,7 @@ export default class Diagram extends Component {
               Object.keys(connectionPoints).map(function(key, pos) {
                 return (
                   <ConnectionPoint
+                    onClick={connectionFunction}
                     key={pos}
                     id={key}
                     x={connectionPoints[key].x}

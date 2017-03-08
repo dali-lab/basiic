@@ -6,7 +6,7 @@ var electron = require('electron');
 const {Raphael,Paper,Set,Circle,Ellipse,Image,Rect,Text,Path,Line} = require('react-raphael');
 
 export default class ConnectionPoint extends Component {
-  // Props include id, x, and y.
+  // Props include onClick, id, x, and y.
   constructor(props) {
     super(props);
 
@@ -45,6 +45,7 @@ export default class ConnectionPoint extends Component {
 
     return (
         <Rect x={tlx} y={tly} width={size} height={size} toBack={true}
+          click={this.props.onClick.bind(null, this)}
           mouseover={this.onMouseOver} mouseout={this.onMouseOut}
           attr={{
             "stroke":"#00FFFF",
