@@ -248,7 +248,7 @@ export default class Diagram extends Component {
                   <Rect
                     key={pos} x={ele.x} y={ele.y} width={ele.size} height={ele.size}
                     attr={{
-                      "stroke":"#f45642",
+                      "stroke":"firebrick",
                       "stroke-width":1,
                       "fill":"#f45642"
                     }}
@@ -262,7 +262,7 @@ export default class Diagram extends Component {
                   <Circle 
                     key={pos} x={ele.x} y={ele.y} r={ele.size}
                     attr={{
-                      "stroke":"#f45642",
+                      "stroke":"firebrick",
                       "stroke-width":1,
                       "fill":"#f45642"
                     }}
@@ -285,7 +285,14 @@ export default class Diagram extends Component {
             }
             {
               this.state.connections.map(function(ele, pos) {
-                return (<Path key={pos} d={ele.path} />)
+                return (
+                  <Path 
+                    key={pos} d={ele.path} 
+                    attr={{
+                      "stroke-width":2,
+                    }}
+                  />
+                )
               })
             }
           </Set>

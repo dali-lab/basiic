@@ -13,7 +13,7 @@ export default class Canvas extends Component {
 
   render() {
     // If this ShapeOption is currently set, render it with a different color
-    let buttonColor = 'grey';
+    let buttonColor = 'lightgrey';
 
     if (this.props.option == this.props.shape
         || this.props.option == this.props.strSize)
@@ -21,7 +21,15 @@ export default class Canvas extends Component {
 
     return (
       <div onClick={this.props.onClick.bind(null, this)}
-          style={{position: 'relative', float: 'left', backgroundColor: buttonColor, width: '10%', height: '90%', marginLeft: '5%', marginTop: '0.5%'}}>
+          style={{
+            fontFamily: '"Lucidia Console", Monaco, monospace',
+            fontFamily: '"Comic Sans MS", cursive, sans-serif',
+            border: '2px solid #00cc00', borderRadius: '5px',
+            textAlign: 'center', position: 'relative', float: 'left',
+            backgroundColor: buttonColor, width: '10%', height: '90%',
+            marginLeft: '5%', marginTop: '0.25%', verticalAlign: 'middle',
+            color: 'black',
+          }}>
         <p>{this.props.option}</p>
       </div>);
   }

@@ -13,7 +13,7 @@ export default class ShapeBar extends Component {
 
   render() {
     return (
-      <div style={{position: 'absolute', backgroundColor: 'red', width: '100%', height: '10%', margin: 0, padding: 0}}>
+      <div style={{position: 'absolute', backgroundColor: 'lightcyan', width: '100%', height: '10%', margin: 0, padding: 0}}>
         <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Rect'/>
         <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Circle'/>
         <ShapeOption onClick={this.props.onShapeOptionClick} shape={this.props.shape} strSize={this.props.strSize} option='Small'/>
