@@ -39,10 +39,6 @@ export default class App extends Component {
   // Handle ShapeOption Click
   onShapeOptionClick(component, e) {
     // Set the state of the app based on the option click
-    console.log("Before: Shape: %s, Size: %s\n", this.state.shape, this.state.size);
-
-    // Check for various known options
-    
     switch(component.props.option) {
       // Two cases for shapes
       case 'Rect':

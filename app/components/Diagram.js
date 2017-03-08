@@ -39,7 +39,6 @@ export default class Diagram extends Component {
     // If not currently connection, start connecting
     if (this.state.setConnectionPoint == null ||
         !this.state.isConnecting) {
-      console.log("Setting connection mode with starter point %s\n", component.props.id);
       this.setState({
         circles: this.state.circles,
         squares: this.state.squares,
@@ -76,9 +75,6 @@ export default class Diagram extends Component {
         path: pathString,
       });
       
-      console.log("Updated Connections:\n");
-      console.log(updatedConnections);
-
       this.setState({
         circles: this.state.circles,
         squares: this.state.squares,
@@ -128,9 +124,6 @@ export default class Diagram extends Component {
       }
     }
     topLeftY = snappedY + 5;
-
-    console.log(topLeftX);
-    console.log(topLeftY);
 
     // Add a new Rectangle
     if (this.props.shape == 'Rect') {
@@ -217,8 +210,6 @@ export default class Diagram extends Component {
         connections: this.state.connections,
       });
     }
-    
-    console.log(this.state);
   };
 
 
