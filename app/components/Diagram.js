@@ -222,10 +222,9 @@ export default class Diagram extends Component {
   };
 
 
-
-  render() {
+  componentWillReceiveProps(nextProps) {
     // If the clear value is set, clear the diagram
-    if (this.props.clear) {
+    if (nextProps.clear) {
       this.setState({
         circles: [],  // Information needed to build a circle block
         squares: [], // Information needed to build a square block
@@ -238,7 +237,10 @@ export default class Diagram extends Component {
       // Call the onClear callback to turn off the clear flag
       this.props.onClear(); 
     }
-    
+
+  }
+
+  render() {
     // Get a copy of the connectionPoint object
     const connectionPoints = {...this.state.connectionPoints};
     const connectionFunction = this.createConnection;
