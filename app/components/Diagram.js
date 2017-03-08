@@ -240,7 +240,7 @@ export default class Diagram extends Component {
     return (
       <div onClick={this.handleClick} 
            style={{position: 'absolute', width: '100%', height: '100%', margin: 0, padding: 0}}>
-        <Paper position='absolute' width={615} height={608}>
+        <Paper position='absolute' width={1300} height={608}>
           <Set>
             {
               this.state.squares.map(function(ele, pos) {
