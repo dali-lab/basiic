@@ -52,9 +52,28 @@ export default class Diagram extends Component {
       // Get the current list of connections and add it to the state
       let updatedConnections = this.state.connections.slice();
 
+      // Construct a path string that starts at the initial point
+      let pathString = "M ";
+      pathString += (
+          this.state.connectionPoints[this.state.setConnectionPoint].x
+      );
+      pathString += ("," +
+          this.state.connectionPoints[this.state.setConnectionPoint].y
+      );
+
+      // Draw a straight line to the second point
+      pathString += " L ";
+      pathString += (
+          this.state.connectionPoints[component.props.id].x
+      );
+      pathString += ("," +
+          this.state.connectionPoints[component.props.id].y
+      );
+
       updatedConnections.push({
         start: this.state.setConnectionPoint,
         end: component.props.id,
+        path: pathString,
       });
       
       console.log("Updated Connections:\n");
@@ -208,7 +227,8 @@ export default class Diagram extends Component {
     // Get a copy of the connectionPoint object
     const connectionPoints = {...this.state.connectionPoints};
     const connectionFunction = this.createConnection;
-    
+    const connectionList = this.connections;
+
     return (
       <div onClick={this.handleClick} 
            style={{position: 'absolute', width: '100%', height: '100%', margin: 0, padding: 0}}>
@@ -253,6 +273,11 @@ export default class Diagram extends Component {
                     y={connectionPoints[key].y}
                   />
                 )
+              })
+            }
+            {
+              this.state.connections.map(function(ele, pos) {
+                return (<Path key={pos} d={ele.path} />)
               })
             }
           </Set>
