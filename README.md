@@ -29,6 +29,7 @@ $ npm run start-hot
 ```
 
 When running with the hot-server, there are two tricky things to keep in mind:
+
 1. Be sure to wait for `npm run hot-server` to print `Listening at http://localhost:3000` before running `npm run start-hot` or you will get a **~spooky error~**.
 2. If you make serious changes to the react app structure (or critical states), end the process running `npm run start-hot` and start it again. This will close the app and allow it to reload. Don't close `npm run hot-server` or you'll be waiting around for a while.
 
@@ -53,11 +54,11 @@ The following are react containers used in the app:
 
 The following are react components used in the app:
 * ShapeBar.js - A menu bar across the top of the screen that has a series of buttons to change app state.
-..* ShapeOption.js - A single button representing an option in the state of the app.
+  * ShapeOption.js - A single button representing an option in the state of the app.
 * Canvas.js - A container composed of a `Diagram` overlaid on top of a `DotGrid`.
-..* DotGrid.js - A SVG-pattern dotgrid in the style of Logisim.
-..* Diagram.js - The actual work-horse representing the diagram (blocks and connections) created by a user.
-....* ConnectionPoint.js - A point at which a connection can start or end.
+  * DotGrid.js - A SVG-pattern dotgrid in the style of Logisim.
+  * Diagram.js - The actual work-horse representing the diagram (blocks and connections) created by a user.
+    * ConnectionPoint.js - A point at which a connection can start or end.
 
 ## The Future and TODOs
 There's a lot of work to be done here to move from this MVP to a more production-quality version of what we'd like basiic to be. For one, our infrastructure is set up to handle redux, but we haven't ported from pure react yet. Additionally, setting up diagrams to persist and connect to code are two or the bigger future TODOs. Finally, because this was somewhat hacked together, it's be nice to replace some of the tech debt; specifically, moving away from magic numbers in absolute dimensions and towards inline-CSS, and abstracting Blocks and Connections out into their own components. At that point, it will most likely be worth rebuilding the app significantly to coincide with the redesigned user flows (thanks @DALI!).
